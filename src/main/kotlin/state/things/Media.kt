@@ -39,7 +39,8 @@ class MediaThing(
         platform: Platform,
         initialGraph: StateMachine.Graph<MediaState, MediaEvent, SideEffect, StateValue>? = null,
         initialState: MediaState = MediaState.Stopped,
-        sideEffect: SideEffect
+        sideEffect: SideEffect,
+        children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : Thing<MediaState, MediaEvent, SideEffect, StateValue>(
         id,
         name,
@@ -92,5 +93,6 @@ class MediaThing(
                 }
             }
             .build(),
-        initialState
+        initialState,
+        children
 )

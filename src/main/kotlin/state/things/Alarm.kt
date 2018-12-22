@@ -33,7 +33,8 @@ class AlarmThing(
         platform: Platform,
         initialGraph: StateMachine.Graph<AlarmState, AlarmEvent, SideEffect, Alarm>? = null,
         initialState: AlarmState = AlarmState.Disarmed,
-        sideEffect: SideEffect
+        sideEffect: SideEffect,
+        children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : Thing<AlarmState, AlarmEvent, SideEffect, Alarm>(
         id,
         name,
@@ -99,5 +100,6 @@ class AlarmThing(
                     }
                 }
             }.build(),
-        initialState
+        initialState,
+        children
 )

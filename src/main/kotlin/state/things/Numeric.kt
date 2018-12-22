@@ -19,7 +19,8 @@ class NumericThing<NumberType>(
         platform: Platform,
         initialGraph: StateMachine.Graph<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>? = null,
         initialState: NumericState<NumberType>,
-        sideEffect: SideEffect
+        sideEffect: SideEffect,
+        children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : Thing<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>(
         id,
         name,
@@ -38,5 +39,6 @@ class NumericThing<NumberType>(
                 }
             }
             .build(),
-        initialState
+        initialState,
+        children
 ) where NumberType : Number, NumberType : Comparable<NumberType>

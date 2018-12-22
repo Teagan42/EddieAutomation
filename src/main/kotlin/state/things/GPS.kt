@@ -29,7 +29,8 @@ class GPSThing(
                          0.0f
                 )
         ),
-        sideEffect: SideEffect
+        sideEffect: SideEffect,
+        children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : Thing<GPSState, GPSUpdated, SideEffect, Location>(
         id,
         name,
@@ -48,5 +49,6 @@ class GPSThing(
                 }
             }
             .build(),
-        initialState
+        initialState,
+        children
 )

@@ -12,7 +12,7 @@ abstract class Thing<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFEC
         val platform: Platform,
         initialGraph: StateMachine.Graph<STATE, EVENT, SIDE_EFFECT, VALUE>,
         initialState: STATE,
-        val parent: Thing<*, *, *, *>? = null
+        val children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : StateMachine<STATE, EVENT, SIDE_EFFECT, VALUE>(
         initialGraph,
         initialState

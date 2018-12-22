@@ -24,7 +24,8 @@ class BinaryThing(
         platform: Platform,
         initialGraph: StateMachine.Graph<BinaryState, BinaryEvent, SideEffect, Boolean>? = null,
         initialState: BinaryState = BinaryState.Off,
-        sideEffect: SideEffect
+        sideEffect: SideEffect,
+        children: MutableList<Thing<*, *, *, *>> = mutableListOf()
 ) : Thing<BinaryState, BinaryEvent, SideEffect, Boolean>(
         id,
         name,
@@ -60,5 +61,6 @@ class BinaryThing(
                 }
             }
             .build(),
-        initialState
+        initialState,
+        children
 )
