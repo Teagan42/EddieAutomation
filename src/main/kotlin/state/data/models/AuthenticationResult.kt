@@ -1,6 +1,8 @@
 package state.data.models
 
 sealed class AuthenticationResult {
+    class Failed(val throwable: Throwable) : AuthenticationResult()
+
     object Authenticated : AuthenticationResult()
 
     open class Token(val token: String) : AuthenticationResult()
