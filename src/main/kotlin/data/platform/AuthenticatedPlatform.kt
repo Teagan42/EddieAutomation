@@ -1,7 +1,7 @@
-package state.data
+package data.platform
 
-import state.data.models.AuthenticationResult
-import state.data.models.Credentials
+import data.platform.models.AuthenticationResult
+import data.platform.models.Credentials
 
 interface AuthenticatedPlatform<CREDENTIALS : Credentials> : Platform {
     suspend fun authenticate(credentials: CREDENTIALS): AuthenticationResult

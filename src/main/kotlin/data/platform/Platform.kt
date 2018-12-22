@@ -1,4 +1,4 @@
-package state.data
+package data.platform
 
 interface Platform {
     val name: String

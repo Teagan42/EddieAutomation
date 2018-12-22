@@ -1,9 +1,8 @@
 package data.remote.isy
 
-import com.universaldevices.dev.UDDevice
 import com.universaldevices.device.model.UDNode
-import state.data.models.AuthenticationResult
-import state.data.models.Credentials
+import data.platform.models.AuthenticationResult
+import data.platform.models.Credentials
 
 interface ISYClient {
     suspend fun connect(credentials: Credentials.Passsword) : AuthenticationResult

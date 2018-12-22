@@ -1,7 +1,7 @@
 package state.things
 
 import state.Thing
-import state.data.Platform
+import data.platform.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState

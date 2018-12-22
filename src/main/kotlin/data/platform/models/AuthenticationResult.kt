@@ -1,4 +1,4 @@
-package state.data.models
+package data.platform.models
 
 sealed class AuthenticationResult {
     class Failed(val throwable: Throwable) : AuthenticationResult()
