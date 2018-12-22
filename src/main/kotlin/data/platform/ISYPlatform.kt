@@ -1,13 +1,10 @@
-package platform
+package data.platform
 
-import com.udi.isy.jsdk.insteon.ISYInsteonClient
-import com.universaldevices.device.model.ISYConfig
 import data.remote.isy.ISYClient
 import state.data.AuthenticatedPlatform
 import state.data.PlatformType
 import state.data.models.AuthenticationResult
 import state.data.models.Credentials
-import state.things.BinaryEvent
 import state.things.OnOffEvent
 
 typealias DON = OnOffEvent.TurnOn<Int>
