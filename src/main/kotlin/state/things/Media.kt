@@ -49,48 +49,32 @@ class MediaThing(
             .apply {
                 state<MediaState.Playing> {
                     on<MediaEvent.Play> {
-                        transitionTo(MediaState.Playing(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Playing(it.value))
                     }
                     on<MediaEvent.Pause> {
-                        transitionTo(MediaState.Paused(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Paused(it.value))
                     }
                     on<MediaEvent.Stop> {
-                        transitionTo(MediaState.Stopped,
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Stopped)
                     }
                 }
                 state<MediaState.Paused> {
                     on<MediaEvent.Play> {
-                        transitionTo(MediaState.Playing(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Playing(it.value))
                     }
                     on<MediaEvent.Pause> {
-                        transitionTo(MediaState.Paused(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Paused(it.value))
                     }
                     on<MediaEvent.Stop> {
-                        transitionTo(MediaState.Stopped,
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Stopped)
                     }
                 }
                 state<MediaState.Stopped> {
                     on<MediaEvent.Play> {
-                        transitionTo(MediaState.Playing(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(MediaState.Playing(it.value))
                     }
                 }
-                onTransition {
-                    sideEffect.execute(it)
-                }
+                onTransition(sideEffect)
             }
             .build(),
         initialState,

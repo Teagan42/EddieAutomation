@@ -47,61 +47,46 @@ class AlarmThing(
                                 when (it.homeMode) {
                                     true -> AlarmState.ArmedHome
                                     false -> AlarmState.ArmedAway
-                                },
-                                sideEffect
+                                }
                         )
                     }
                 }
                 state<AlarmState.Triggered> {
                     on<AlarmEvent.Disarm> {
-                        transitionTo(AlarmState.Disarmed,
-                                     sideEffect
-                        )
+                        transitionTo(AlarmState.Disarmed)
                     }
                 }
                 state<AlarmState.ArmedHome> {
                     on<AlarmEvent.Trigger> {
-                        transitionTo(AlarmState.Triggered,
-                                     sideEffect
-                        )
+                        transitionTo(AlarmState.Triggered)
                     }
                     on<AlarmEvent.Disarm> {
-                        transitionTo(AlarmState.Disarmed,
-                                     sideEffect
-                        )
+                        transitionTo(AlarmState.Disarmed)
                     }
                     on<AlarmEvent.Arm> {
                         transitionTo(when (it.homeMode) {
                                          true -> AlarmState.ArmedHome
                                          false -> AlarmState.ArmedAway
-                                     },
-                                     sideEffect
+                                     }
                         )
                     }
                 }
                 state<AlarmState.ArmedAway> {
                     on<AlarmEvent.Trigger> {
-                        transitionTo(AlarmState.Triggered,
-                                     sideEffect
-                        )
+                        transitionTo(AlarmState.Triggered)
                     }
                     on<AlarmEvent.Disarm> {
-                        transitionTo(AlarmState.Disarmed,
-                                     sideEffect
-                        )
+                        transitionTo(AlarmState.Disarmed)
                     }
                     on<AlarmEvent.Arm> {
                         transitionTo(when (it.homeMode) {
                                          true -> AlarmState.ArmedHome
                                          false -> AlarmState.ArmedAway
-                                     },
-                                     sideEffect
+                                     }
                         )
                     }
                 }
-                onTransition {
-                    sideEffect.execute(it)
-                }
+                onTransition(sideEffect)
             }.build(),
         initialState,
         children

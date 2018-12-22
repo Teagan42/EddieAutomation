@@ -34,31 +34,21 @@ class BinaryThing(
             .apply {
                 state<BinaryState.Off> {
                     on<BinaryEvent.TurnOn> {
-                        transitionTo(BinaryState.On,
-                                     sideEffect
-                        )
+                        transitionTo(BinaryState.On)
                     }
                     on<BinaryEvent.Toggle> {
-                        transitionTo(BinaryState.On,
-                                     sideEffect
-                        )
+                        transitionTo(BinaryState.On)
                     }
                 }
                 state<BinaryState.On> {
                     on<BinaryEvent.TurnOff> {
-                        transitionTo(BinaryState.Off,
-                                     sideEffect
-                        )
+                        transitionTo(BinaryState.Off)
                     }
                     on<BinaryEvent.Toggle> {
-                        transitionTo(BinaryState.Off,
-                                     sideEffect
-                        )
+                        transitionTo(BinaryState.Off)
                     }
                 }
-                onTransition {
-                    sideEffect.execute(it)
-                }
+                onTransition(sideEffect)
             }
             .build(),
         initialState,

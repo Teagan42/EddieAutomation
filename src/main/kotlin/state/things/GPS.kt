@@ -39,14 +39,10 @@ class GPSThing(
             .apply {
                 state<GPSState> {
                     on<GPSUpdated> {
-                        transitionTo(GPSState(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(GPSState(it.value))
                     }
                 }
-                onTransition {
-                    sideEffect.execute(it)
-                }
+                onTransition(sideEffect)
             }
             .build(),
         initialState,

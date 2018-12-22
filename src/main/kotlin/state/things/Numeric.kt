@@ -29,15 +29,10 @@ class NumericThing<NumberType>(
             .apply {
                 state<NumericState<NumberType>> {
                     on<SetNumericValue<NumberType>> {
-                        transitionTo(NumericState(it.value),
-                                     sideEffect
-                        )
+                        transitionTo(NumericState(it.value))
                     }
-                    onEnter {  }
                 }
-                onTransition {
-                    sideEffect.execute(it)
-                }
+                onTransition(sideEffect)
             }
             .build(),
         initialState,
