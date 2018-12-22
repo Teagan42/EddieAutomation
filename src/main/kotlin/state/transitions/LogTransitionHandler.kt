@@ -1,4 +1,4 @@
-package state.sideeffects
+package state.transitions
 
 import state.machine.StateMachine
 import state.machine.base.TransitionHandler
