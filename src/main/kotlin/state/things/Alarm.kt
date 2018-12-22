@@ -99,6 +99,9 @@ class AlarmThing(
                         )
                     }
                 }
+                onTransition {
+                    sideEffect.execute(it)
+                }
             }.build(),
         initialState,
         children

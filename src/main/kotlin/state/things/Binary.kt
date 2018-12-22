@@ -57,7 +57,7 @@ class BinaryThing(
                     }
                 }
                 onTransition {
-                    TODO("Handle Transition")
+                    sideEffect.execute(it)
                 }
             }
             .build(),

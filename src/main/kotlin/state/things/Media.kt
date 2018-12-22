@@ -89,7 +89,7 @@ class MediaThing(
                     }
                 }
                 onTransition {
-                    TODO("Handle Transition")
+                    sideEffect.execute(it)
                 }
             }
             .build(),

@@ -45,7 +45,7 @@ class GPSThing(
                     }
                 }
                 onTransition {
-                    TODO("Handle Transition")
+                    sideEffect.execute(it)
                 }
             }
             .build(),

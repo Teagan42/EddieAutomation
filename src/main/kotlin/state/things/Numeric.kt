@@ -33,9 +33,10 @@ class NumericThing<NumberType>(
                                      sideEffect
                         )
                     }
+                    onEnter {  }
                 }
                 onTransition {
-                    TODO("Handle Transition")
+                    sideEffect.execute(it)
                 }
             }
             .build(),
