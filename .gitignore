@@ -3,3 +3,6 @@
 
 out
 out/**
+
+.gradle
+.gradle/**
