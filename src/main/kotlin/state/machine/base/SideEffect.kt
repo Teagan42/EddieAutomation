@@ -1,6 +1,5 @@
 package state.machine.base
 
-import state.Device
 import state.machine.StateMachine
 
 interface SideEffect {

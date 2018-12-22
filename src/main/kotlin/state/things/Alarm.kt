@@ -1,6 +1,6 @@
-package state.devices
+package state.things
 
-import state.Device
+import state.Thing
 import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
@@ -27,14 +27,14 @@ sealed class AlarmEvent : DeviceEvent {
     object Trigger : AlarmEvent()
 }
 
-class AlarmDevice(
+class AlarmThing(
         id: String,
         name: String,
         platform: Platform,
         initialGraph: StateMachine.Graph<AlarmState, AlarmEvent, SideEffect, Alarm>? = null,
         initialState: AlarmState = AlarmState.Disarmed,
         sideEffect: SideEffect
-) : Device<AlarmState, AlarmEvent, SideEffect, Alarm>(
+) : Thing<AlarmState, AlarmEvent, SideEffect, Alarm>(
         id,
         name,
         platform,

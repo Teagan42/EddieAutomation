@@ -1,6 +1,6 @@
-package state.devices
+package state.things
 
-import state.Device
+import state.Thing
 import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
@@ -13,14 +13,14 @@ data class NumericState<NumberType>(override val value: NumberType) :
 data class SetNumericValue<NumberType>(val value: NumberType) :
     DeviceEvent where NumberType : Number, NumberType : Comparable<NumberType>
 
-class NumericDevice<NumberType>(
+class NumericThing<NumberType>(
         id: String,
         name: String,
         platform: Platform,
         initialGraph: StateMachine.Graph<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>? = null,
         initialState: NumericState<NumberType>,
         sideEffect: SideEffect
-) : Device<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>(
+) : Thing<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>(
         id,
         name,
         platform,

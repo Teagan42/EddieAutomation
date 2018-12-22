@@ -1,6 +1,6 @@
-package state.devices
+package state.things
 
-import state.Device
+import state.Thing
 import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
@@ -33,14 +33,14 @@ sealed class MediaEvent(val value: StateValue) : DeviceEvent {
     object Stop : MediaEvent(StateValue(type = MediaType.UNKNOWN))
 }
 
-class MediaDevice(
+class MediaThing(
         id: String,
         name: String,
         platform: Platform,
         initialGraph: StateMachine.Graph<MediaState, MediaEvent, SideEffect, StateValue>? = null,
         initialState: MediaState = MediaState.Stopped,
         sideEffect: SideEffect
-) : Device<MediaState, MediaEvent, SideEffect, StateValue>(
+) : Thing<MediaState, MediaEvent, SideEffect, StateValue>(
         id,
         name,
         platform,

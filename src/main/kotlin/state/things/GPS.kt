@@ -1,6 +1,6 @@
-package state.devices
+package state.things
 
-import state.Device
+import state.Thing
 import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
@@ -18,7 +18,7 @@ data class GPSState(override val value: Location) :
 
 data class GPSUpdated(val value: Location) : DeviceEvent
 
-class GPSDevice(
+class GPSThing(
         id: String,
         name: String,
         platform: Platform,
@@ -30,7 +30,7 @@ class GPSDevice(
                 )
         ),
         sideEffect: SideEffect
-) : Device<GPSState, GPSUpdated, SideEffect, Location>(
+) : Thing<GPSState, GPSUpdated, SideEffect, Location>(
         id,
         name,
         platform,

@@ -1,6 +1,6 @@
-package state.devices
+package state.things
 
-import state.Device
+import state.Thing
 import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
@@ -18,14 +18,14 @@ sealed class BinaryEvent : DeviceEvent {
     object Toggle : BinaryEvent()
 }
 
-class BinaryDevice(
+class BinaryThing(
         id: String,
         name: String,
         platform: Platform,
         initialGraph: StateMachine.Graph<BinaryState, BinaryEvent, SideEffect, Boolean>? = null,
         initialState: BinaryState = BinaryState.Off,
         sideEffect: SideEffect
-) : Device<BinaryState, BinaryEvent, SideEffect, Boolean>(
+) : Thing<BinaryState, BinaryEvent, SideEffect, Boolean>(
         id,
         name,
         platform,
