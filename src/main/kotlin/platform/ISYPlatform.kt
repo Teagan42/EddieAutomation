@@ -19,6 +19,7 @@ class ISYPlatform(
         client.connect(credentials)
 
     override suspend fun initialize() {
+        authenticate()
         client.addAllNodes()
     }
 }
