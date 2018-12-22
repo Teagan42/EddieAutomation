@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import data.platform.models.AuthenticationResult
-import data.platform.models.Credentials
+import platform.models.AuthenticationResult
+import platform.models.Credentials
 import util.ifTrueMaybe
 import java.net.URI
 import java.util.*

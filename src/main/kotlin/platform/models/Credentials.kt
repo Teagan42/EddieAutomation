@@ -1,4 +1,4 @@
-package data.platform.models
+package platform.models
 
 sealed class Credentials {
     data class PasswordOnly(val password: String) : Credentials()

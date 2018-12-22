@@ -1,8 +1,8 @@
-package data.platform
+package platform
 
 import data.remote.isy.ISYClient
-import data.platform.models.AuthenticationResult
-import data.platform.models.Credentials
+import platform.models.AuthenticationResult
+import platform.models.Credentials
 import state.things.OnOffEvent
 
 typealias DON = OnOffEvent.TurnOn<Int>

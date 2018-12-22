@@ -1,6 +1,6 @@
 package state
 
-import data.platform.Platform
+import platform.Platform
 import state.machine.StateMachine
 import state.machine.base.ThingEvent
 import state.machine.base.ThingState
