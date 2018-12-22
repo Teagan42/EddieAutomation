@@ -13,6 +13,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 compileKotlin {
