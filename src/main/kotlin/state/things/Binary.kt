@@ -3,16 +3,16 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
-sealed class BinaryState(override val value: Boolean) : DeviceState<Boolean> {
+sealed class BinaryState(override val value: Boolean) : ThingState<Boolean> {
     object On : BinaryState(true)
     object Off : BinaryState(false)
 }
 
-sealed class BinaryEvent : DeviceEvent {
+sealed class BinaryEvent : ThingEvent {
     object TurnOn : BinaryEvent()
     object TurnOff : BinaryEvent()
     object Toggle : BinaryEvent()

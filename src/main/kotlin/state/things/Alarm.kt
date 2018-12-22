@@ -3,8 +3,8 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
 enum class Alarm {
@@ -14,14 +14,14 @@ enum class Alarm {
     TRIGGERED
 }
 
-sealed class AlarmState(override val value: Alarm) : DeviceState<Alarm> {
+sealed class AlarmState(override val value: Alarm) : ThingState<Alarm> {
     object Disarmed : AlarmState(Alarm.DISARMED)
     object ArmedHome : AlarmState(Alarm.ARMED_HOME)
     object ArmedAway : AlarmState(Alarm.ARMED_AWAY)
     object Triggered : AlarmState(Alarm.TRIGGERED)
 }
 
-sealed class AlarmEvent : DeviceEvent {
+sealed class AlarmEvent : ThingEvent {
     object Disarm : AlarmEvent()
     data class Arm(val homeMode: Boolean) : AlarmEvent()
     object Trigger : AlarmEvent()

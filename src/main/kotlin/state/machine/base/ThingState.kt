@@ -1,5 +1,5 @@
 package state.machine.base
 
-interface DeviceState<ValueType> {
+interface ThingState<ValueType> {
     val value: ValueType
 }

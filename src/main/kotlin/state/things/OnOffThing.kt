@@ -3,18 +3,18 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
-sealed class OnOffState<LEVEL>(override val value: LEVEL) : DeviceState<LEVEL> where LEVEL : Number, LEVEL : Comparable<LEVEL> {
+sealed class OnOffState<LEVEL>(override val value: LEVEL) : ThingState<LEVEL> where LEVEL : Number, LEVEL : Comparable<LEVEL> {
     @Suppress("UNCHECKED_CAST")
     class Off<LEVEL> : OnOffState<LEVEL>(0 as LEVEL) where LEVEL : Number, LEVEL : Comparable<LEVEL>
 
     class On<LEVEL>(onLevel: LEVEL) : OnOffState<LEVEL>(onLevel) where LEVEL : Number, LEVEL : Comparable<LEVEL>
 }
 
-sealed class OnOffEvent<LEVEL>() : DeviceEvent where LEVEL : Number, LEVEL : Comparable<LEVEL> {
+sealed class OnOffEvent<LEVEL>() : ThingEvent where LEVEL : Number, LEVEL : Comparable<LEVEL> {
     @Suppress("UNCHECKED_CAST")
     class TurnOff<LEVEL> : OnOffEvent<LEVEL>() where LEVEL : Number, LEVEL : Comparable<LEVEL>
 

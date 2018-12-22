@@ -3,8 +3,8 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
 enum class MediaType {
@@ -21,13 +21,13 @@ data class StateValue(
 )
 
 sealed class MediaState(override val value: StateValue) :
-    DeviceState<StateValue> {
+    ThingState<StateValue> {
     class Playing(value: StateValue) : MediaState(value)
     class Paused(value: StateValue) : MediaState(value)
     object Stopped : MediaState(StateValue(type = MediaType.UNKNOWN))
 }
 
-sealed class MediaEvent(val value: StateValue) : DeviceEvent {
+sealed class MediaEvent(val value: StateValue) : ThingEvent {
     class Play(value: StateValue) : MediaEvent(value)
     class Pause(value: StateValue) : MediaEvent(value)
     object Stop : MediaEvent(StateValue(type = MediaType.UNKNOWN))

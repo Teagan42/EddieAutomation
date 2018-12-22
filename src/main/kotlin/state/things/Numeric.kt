@@ -3,15 +3,15 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
 data class NumericState<NumberType>(override val value: NumberType) :
-    DeviceState<NumberType> where NumberType : Number, NumberType : Comparable<NumberType>
+    ThingState<NumberType> where NumberType : Number, NumberType : Comparable<NumberType>
 
 data class SetNumericValue<NumberType>(val value: NumberType) :
-    DeviceEvent where NumberType : Number, NumberType : Comparable<NumberType>
+    ThingEvent where NumberType : Number, NumberType : Comparable<NumberType>
 
 class NumericThing<NumberType>(
         id: String,

@@ -2,11 +2,11 @@ package state
 
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
-abstract class Thing<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
+abstract class Thing<STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
         val id: String,
         val name: String,
         val platform: Platform,

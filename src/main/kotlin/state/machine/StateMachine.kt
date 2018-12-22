@@ -1,11 +1,11 @@
 package state.machine
 
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 import java.util.concurrent.atomic.AtomicReference
 
-open class StateMachine<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE> {
+open class StateMachine<STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE> {
 
     private val graph: Graph<STATE, EVENT, SIDE_EFFECT, VALUE>
     private val stateRef: AtomicReference<STATE>
@@ -136,30 +136,30 @@ open class StateMachine<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EF
     }
 
     @Suppress("UNUSED")
-    sealed class Transition<out STATE : DeviceState<VALUE>, out EVENT : DeviceEvent, out SIDE_EFFECT : TransitionHandler, VALUE> {
+    sealed class Transition<out STATE : ThingState<VALUE>, out EVENT : ThingEvent, out SIDE_EFFECT : TransitionHandler, VALUE> {
         abstract val fromState: STATE
         abstract val event: EVENT
 
-        data class Valid<out STATE : DeviceState<VALUE>, out EVENT : DeviceEvent, out SIDE_EFFECT : TransitionHandler, VALUE> internal constructor(
+        data class Valid<out STATE : ThingState<VALUE>, out EVENT : ThingEvent, out SIDE_EFFECT : TransitionHandler, VALUE> internal constructor(
                 override val fromState: STATE,
                 override val event: EVENT,
                 val toState: STATE,
                 val sideEffect: SIDE_EFFECT?
         ) : Transition<STATE, EVENT, SIDE_EFFECT, VALUE>()
 
-        data class Invalid<out STATE : DeviceState<VALUE>, out EVENT : DeviceEvent, out SIDE_EFFECT : TransitionHandler, VALUE> internal constructor(
+        data class Invalid<out STATE : ThingState<VALUE>, out EVENT : ThingEvent, out SIDE_EFFECT : TransitionHandler, VALUE> internal constructor(
                 override val fromState: STATE,
                 override val event: EVENT
         ) : Transition<STATE, EVENT, SIDE_EFFECT, VALUE>()
     }
 
-    data class Graph<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
+    data class Graph<STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
             val initialState: STATE,
             val stateDefinitions: Map<Matcher<STATE, STATE>, State<STATE, EVENT, SIDE_EFFECT, VALUE>>,
             val onTransitionListeners: List<(StateMachine<STATE, EVENT, SIDE_EFFECT, VALUE>, Transition<STATE, EVENT, SIDE_EFFECT, VALUE>) -> Unit>
     ) {
 
-        class State<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE> internal constructor() {
+        class State<STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE> internal constructor() {
             val onEnterListeners = mutableListOf<(STATE, EVENT) -> Unit>()
             val onExitListeners = mutableListOf<(STATE, EVENT) -> Unit>()
             val transitions = linkedMapOf<Matcher<EVENT, EVENT>, (STATE, EVENT) -> TransitionTo<STATE, SIDE_EFFECT>>()
@@ -193,7 +193,7 @@ open class StateMachine<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EF
         }
     }
 
-    class GraphBuilder<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
+    class GraphBuilder<STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
             graph: Graph<STATE, EVENT, SIDE_EFFECT, VALUE>? = null
     ) {
         private var initialState = graph?.initialState
@@ -310,7 +310,7 @@ open class StateMachine<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EF
     }
 
     companion object {
-        fun <STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE> create(
+        fun <STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE> create(
                 init: GraphBuilder<STATE, EVENT, SIDE_EFFECT, VALUE>.() -> Unit
         ): StateMachine<STATE, EVENT, SIDE_EFFECT, VALUE> {
             return create(null,
@@ -318,7 +318,7 @@ open class StateMachine<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EF
             )
         }
 
-        private fun <STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE> create(
+        private fun <STATE : ThingState<VALUE>, EVENT : ThingEvent, SIDE_EFFECT : TransitionHandler, VALUE> create(
                 graph: Graph<STATE, EVENT, SIDE_EFFECT, VALUE>?,
                 init: GraphBuilder<STATE, EVENT, SIDE_EFFECT, VALUE>.() -> Unit
         ): StateMachine<STATE, EVENT, SIDE_EFFECT, VALUE> {

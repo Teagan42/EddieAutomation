@@ -3,8 +3,8 @@ package state.things
 import state.Thing
 import data.platform.Platform
 import state.machine.StateMachine
-import state.machine.base.DeviceEvent
-import state.machine.base.DeviceState
+import state.machine.base.ThingEvent
+import state.machine.base.ThingState
 import state.machine.base.TransitionHandler
 
 data class Location(
@@ -14,9 +14,9 @@ data class Location(
 )
 
 data class GPSState(override val value: Location) :
-    DeviceState<Location>
+    ThingState<Location>
 
-data class GPSUpdated(val value: Location) : DeviceEvent
+data class GPSUpdated(val value: Location) : ThingEvent
 
 class GPSThing(
         id: String,
