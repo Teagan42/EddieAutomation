@@ -4,9 +4,9 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
-abstract class Thing<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : SideEffect, VALUE>(
+abstract class Thing<STATE : DeviceState<VALUE>, EVENT : DeviceEvent, SIDE_EFFECT : TransitionHandler, VALUE>(
         val id: String,
         val name: String,
         val platform: Platform,

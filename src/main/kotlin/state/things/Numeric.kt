@@ -5,7 +5,7 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
 data class NumericState<NumberType>(override val value: NumberType) :
     DeviceState<NumberType> where NumberType : Number, NumberType : Comparable<NumberType>
@@ -17,11 +17,11 @@ class NumericThing<NumberType>(
         id: String,
         name: String,
         platform: Platform,
-        initialGraph: StateMachine.Graph<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>? = null,
+        initialGraph: StateMachine.Graph<NumericState<NumberType>, SetNumericValue<NumberType>, TransitionHandler, NumberType>? = null,
         initialState: NumericState<NumberType>,
-        sideEffect: SideEffect,
+        transitionHandler: TransitionHandler,
         children: MutableList<Thing<*, *, *, *>> = mutableListOf()
-) : Thing<NumericState<NumberType>, SetNumericValue<NumberType>, SideEffect, NumberType>(
+) : Thing<NumericState<NumberType>, SetNumericValue<NumberType>, TransitionHandler, NumberType>(
         id,
         name,
         platform,
@@ -32,7 +32,7 @@ class NumericThing<NumberType>(
                         transitionTo(NumericState(it.value))
                     }
                 }
-                onTransition(sideEffect)
+                onTransition(transitionHandler)
             }
             .build(),
         initialState,

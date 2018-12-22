@@ -5,7 +5,7 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
 enum class MediaType {
     UNKNOWN,
@@ -37,11 +37,11 @@ class MediaThing(
         id: String,
         name: String,
         platform: Platform,
-        initialGraph: StateMachine.Graph<MediaState, MediaEvent, SideEffect, StateValue>? = null,
+        initialGraph: StateMachine.Graph<MediaState, MediaEvent, TransitionHandler, StateValue>? = null,
         initialState: MediaState = MediaState.Stopped,
-        sideEffect: SideEffect,
+        transitionHandler: TransitionHandler,
         children: MutableList<Thing<*, *, *, *>> = mutableListOf()
-) : Thing<MediaState, MediaEvent, SideEffect, StateValue>(
+) : Thing<MediaState, MediaEvent, TransitionHandler, StateValue>(
         id,
         name,
         platform,
@@ -74,7 +74,7 @@ class MediaThing(
                         transitionTo(MediaState.Playing(it.value))
                     }
                 }
-                onTransition(sideEffect)
+                onTransition(transitionHandler)
             }
             .build(),
         initialState,

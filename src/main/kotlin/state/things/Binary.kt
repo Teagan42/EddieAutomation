@@ -5,7 +5,7 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
 sealed class BinaryState(override val value: Boolean) : DeviceState<Boolean> {
     object On : BinaryState(true)
@@ -22,11 +22,11 @@ class BinaryThing(
         id: String,
         name: String,
         platform: Platform,
-        initialGraph: StateMachine.Graph<BinaryState, BinaryEvent, SideEffect, Boolean>? = null,
+        initialGraph: StateMachine.Graph<BinaryState, BinaryEvent, TransitionHandler, Boolean>? = null,
         initialState: BinaryState = BinaryState.Off,
-        sideEffect: SideEffect,
+        transitionHandler: TransitionHandler,
         children: MutableList<Thing<*, *, *, *>> = mutableListOf()
-) : Thing<BinaryState, BinaryEvent, SideEffect, Boolean>(
+) : Thing<BinaryState, BinaryEvent, TransitionHandler, Boolean>(
         id,
         name,
         platform,
@@ -48,7 +48,7 @@ class BinaryThing(
                         transitionTo(BinaryState.Off)
                     }
                 }
-                onTransition(sideEffect)
+                onTransition(transitionHandler)
             }
             .build(),
         initialState,

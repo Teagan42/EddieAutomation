@@ -5,7 +5,7 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
 enum class Alarm {
     DISARMED,
@@ -31,11 +31,11 @@ class AlarmThing(
         id: String,
         name: String,
         platform: Platform,
-        initialGraph: StateMachine.Graph<AlarmState, AlarmEvent, SideEffect, Alarm>? = null,
+        initialGraph: StateMachine.Graph<AlarmState, AlarmEvent, TransitionHandler, Alarm>? = null,
         initialState: AlarmState = AlarmState.Disarmed,
-        sideEffect: SideEffect,
+        transitionHandler: TransitionHandler,
         children: MutableList<Thing<*, *, *, *>> = mutableListOf()
-) : Thing<AlarmState, AlarmEvent, SideEffect, Alarm>(
+) : Thing<AlarmState, AlarmEvent, TransitionHandler, Alarm>(
         id,
         name,
         platform,
@@ -86,7 +86,7 @@ class AlarmThing(
                         )
                     }
                 }
-                onTransition(sideEffect)
+                onTransition(transitionHandler)
             }.build(),
         initialState,
         children

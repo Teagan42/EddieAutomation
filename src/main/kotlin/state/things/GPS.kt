@@ -5,7 +5,7 @@ import state.data.Platform
 import state.machine.StateMachine
 import state.machine.base.DeviceEvent
 import state.machine.base.DeviceState
-import state.machine.base.SideEffect
+import state.machine.base.TransitionHandler
 
 data class Location(
         val name: String? = null,
@@ -22,16 +22,16 @@ class GPSThing(
         id: String,
         name: String,
         platform: Platform,
-        initialGraph: StateMachine.Graph<GPSState, GPSUpdated, SideEffect, Location>? = null,
+        initialGraph: StateMachine.Graph<GPSState, GPSUpdated, TransitionHandler, Location>? = null,
         initialState: GPSState = GPSState(
                 Location(null,
                          0.0f,
                          0.0f
                 )
         ),
-        sideEffect: SideEffect,
+        transitionHandler: TransitionHandler,
         children: MutableList<Thing<*, *, *, *>> = mutableListOf()
-) : Thing<GPSState, GPSUpdated, SideEffect, Location>(
+) : Thing<GPSState, GPSUpdated, TransitionHandler, Location>(
         id,
         name,
         platform,
@@ -42,7 +42,7 @@ class GPSThing(
                         transitionTo(GPSState(it.value))
                     }
                 }
-                onTransition(sideEffect)
+                onTransition(transitionHandler)
             }
             .build(),
         initialState,
