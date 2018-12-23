@@ -75,7 +75,6 @@ class ISYRemoteClient(
             if (!nodeEventChannel.isClosedForSend) {
                 nodeEventChannel.send(ISYNodeEvent.Added(node))
             }
-            val x = UDControl().actions
         }
     }
 
