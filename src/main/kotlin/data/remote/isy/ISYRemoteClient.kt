@@ -7,11 +7,8 @@ import com.universaldevices.common.properties.UDProperty
 import com.universaldevices.device.model.*
 import com.universaldevices.upnp.UDProxyDevice
 import data.models.ISYNodeEvent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.launch
 import platform.models.AuthenticationResult
 import platform.models.Credentials
 import util.ifTrueMaybe
@@ -24,7 +21,7 @@ class ISYRemoteClient(
         private val deviceUUID: UUID,
         private val deviceUri: URI,
         private val nodeEventChannel: Channel<ISYNodeEvent>,
-        override val coroutineContext: CoroutineContext = Dispatchers.IO
+        override val coroutineContext: CoroutineContext = Dispatchers.IO + Job()
 ) : ISYClient,
     CoroutineScope,
     ISYInsteonClient() {
