@@ -1,9 +1,8 @@
 package platform
 
 import data.remote.isy.ISYClient
-import platform.models.AuthenticationResult
-import platform.models.Credentials
-import state.things.OnOffEvent
+import common.models.AuthenticationResult
+import common.models.Credentials
 
 class ISYPlatform(
         override val credentials: Credentials.Passsword,
@@ -21,6 +20,6 @@ class ISYPlatform(
     }
 
     override suspend fun destroy() {
-
+        client.disconnect()
     }
 }

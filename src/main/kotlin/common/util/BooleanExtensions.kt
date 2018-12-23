@@ -1,4 +1,4 @@
-package util
+package common.util
 
 inline fun Boolean.ifTrue(block: () -> Unit): Unit = if (this) block() else Unit
 

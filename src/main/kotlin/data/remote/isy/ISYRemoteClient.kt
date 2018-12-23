@@ -9,9 +9,9 @@ import com.universaldevices.upnp.UDProxyDevice
 import data.models.ISYNodeEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import platform.models.AuthenticationResult
-import platform.models.Credentials
-import util.ifTrueMaybe
+import common.models.AuthenticationResult
+import common.models.Credentials
+import common.util.ifTrueMaybe
 import java.net.URI
 import java.util.*
 import kotlin.coroutines.CoroutineContext

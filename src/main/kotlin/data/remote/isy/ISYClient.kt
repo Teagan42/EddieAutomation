@@ -1,8 +1,8 @@
 package data.remote.isy
 
 import com.universaldevices.device.model.UDNode
-import platform.models.AuthenticationResult
-import platform.models.Credentials
+import common.models.AuthenticationResult
+import common.models.Credentials
 
 enum class ISYCommand(val cmd: String) {
     TURN_ON("DON"),
