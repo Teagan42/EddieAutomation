@@ -5,9 +5,6 @@ import platform.models.AuthenticationResult
 import platform.models.Credentials
 import state.things.OnOffEvent
 
-typealias DON = OnOffEvent.TurnOn<Int>
-typealias DOFF = OnOffEvent.TurnOff<Int>
-
 class ISYPlatform(
         override val credentials: Credentials.Passsword,
         private val client: ISYClient

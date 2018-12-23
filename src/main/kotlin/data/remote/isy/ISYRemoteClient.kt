@@ -74,6 +74,27 @@ class ISYRemoteClient(
             if (!nodeEventChannel.isClosedForSend) {
                 nodeEventChannel.send(ISYNodeEvent.Added(node))
             }
+            val x = UDControl().actions
+        }
+    }
+
+    override fun <VALUE> sendCommand(command: ISYCommand,
+                                     value: VALUE,
+                                     node: UDNode
+    ) {
+        launch {
+            when (node) {
+                is UDGroup ->
+                    changeGroupState(command.cmd,
+                                     value.toString(),
+                                     node.address
+                    )
+                else ->
+                    changeNodeState(command.cmd,
+                                    value.toString(),
+                                    node.address
+                    )
+            }
         }
     }
 
@@ -87,8 +108,8 @@ class ISYRemoteClient(
         // TODO
     }
 
-    override fun onNewGroup(p0: UDGroup?) {
-        // TODO
+    override fun onNewGroup(group: UDGroup?) {
+        group?.let { onNodeAdded(group) }
     }
 
     override fun onFolderRemoved(p0: String?) {
@@ -126,11 +147,15 @@ class ISYRemoteClient(
         // TODO
     }
 
-    override fun onNodeDevicePropertyChanged(p0: UDProxyDevice?,
-                                             p1: UDNode?,
-                                             p2: UDProperty<*>?
+    override fun onNodeDevicePropertyChanged(device: UDProxyDevice?,
+                                             node: UDNode?,
+                                             property: UDProperty<*>?
     ) {
-        // TODO
+        launch {
+            if (!nodeEventChannel.isClosedForSend) {
+                node?.let { nodeEventChannel.send(ISYNodeEvent.StateChanged(node)) }
+            }
+        }
     }
 
     override fun onDeviceSpecific(p0: String?,
