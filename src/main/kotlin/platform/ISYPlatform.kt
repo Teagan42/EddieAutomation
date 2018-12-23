@@ -1,8 +1,8 @@
 package platform
 
-import data.remote.isy.ISYClient
 import common.models.AuthenticationResult
 import common.models.Credentials
+import data.remote.isy.ISYClient
 
 class ISYPlatform(
         override val credentials: Credentials.Passsword,
