@@ -10,7 +10,7 @@ import config.model.platforms.ISYConfig
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
               include = JsonTypeInfo.As.PROPERTY,
-              property = "name"
+              property = "platform"
 )
 @JsonSubTypes(
         value = [
@@ -20,6 +20,7 @@ import config.model.platforms.ISYConfig
         ]
 )
 open class PlatformConfig(
-        @JsonTypeId val name: String,
         val credentials: Credentials? = null
-)
+) {
+    @JsonTypeId lateinit var platform: String
+}
