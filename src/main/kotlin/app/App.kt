@@ -1,3 +1,5 @@
+package app
+
 class App {
     companion object {
         @JvmStatic
