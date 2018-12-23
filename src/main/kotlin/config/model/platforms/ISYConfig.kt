@@ -8,7 +8,7 @@ import java.util.*
 class ISYConfig(
         name: String,
         credentials: Credentials? = null,
-        val deviceUUID: UUID,
+        val deviceUUID: String,
         val deviceUri: URI
 ) : PlatformConfig(
         name,
