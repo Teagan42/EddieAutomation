@@ -5,6 +5,8 @@ interface Platform {
     val type: PlatformType
 
     suspend fun initialize()
+
+    suspend fun destroy()
 }
 
 enum class PlatformType {

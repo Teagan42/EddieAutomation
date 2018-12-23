@@ -21,6 +21,8 @@ enum class ISYCommand(val cmd: String) {
 interface ISYClient {
     suspend fun connect(credentials: Credentials.Passsword): AuthenticationResult
 
+    suspend fun disconnect()
+
     fun addAllNodes()
 
     fun onNodeAdded(node: UDNode)

@@ -19,4 +19,8 @@ class ISYPlatform(
         authenticate()
         client.addAllNodes()
     }
+
+    override suspend fun destroy() {
+
+    }
 }

@@ -62,6 +62,10 @@ class ISYRemoteClient(
                 }
             }
 
+    override suspend fun disconnect() {
+        this.stop()
+    }
+
     override fun addAllNodes() {
         device.nodes.values.forEach { onNodeAdded(it) }
     }

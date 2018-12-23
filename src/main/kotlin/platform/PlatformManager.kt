@@ -13,7 +13,21 @@ class PlatformManager(
 
     fun initialize(vararg platform: Platform) {
         platform.forEach {
+            platforms.add(it)
             launch { it.initialize() }
         }
+    }
+
+    fun destroy(vararg platform: Platform) {
+        platform.forEach {
+            launch {
+                it.destroy()
+                platforms.remove(it)
+            }
+        }
+    }
+
+    fun destroy() {
+        destroy(*platforms.toTypedArray())
     }
 }
