@@ -21,7 +21,7 @@ import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
 class ISYRemoteClient(
-        private val deviceUUID: UUID,
+        private val deviceUUID: String,
         private val deviceUri: URI,
         private val nodeEventChannel: Channel<ISYNodeEvent>,
         override val coroutineContext: CoroutineContext = Dispatchers.IO + Job()

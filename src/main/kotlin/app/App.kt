@@ -5,8 +5,12 @@ import app.bindings.AppBinding.Companion.getInstance
 import app.bindings.AppBindingArguments
 import app.bindings.appModule
 import config.ConfigLoader
+import config.model.PlatformConfig
 import org.kodein.di.Kodein
+import org.kodein.di.generic.factory
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
+import platform.Platform
 import java.nio.file.Path
 
 class App {
@@ -20,9 +24,12 @@ class App {
             )
 
             val configLoader: ConfigLoader<*> by bindings.instance()
+            val platformFactory: (PlatformConfig) -> Platform by bindings.factory()
 
             configLoader.load().platforms.forEach {
-                println(it)
+                val platform = platformFactory(it)
+
+                println("Platform: ${platform.javaClass.simpleName}")
             }
         }
     }
