@@ -13,13 +13,14 @@ import common.models.AuthenticationResult
 import common.models.Credentials
 import common.util.ifTrueMaybe
 import data.models.ISYNodeEvent
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 import java.net.URI
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-@ExperimentalCoroutinesApi
 class ISYRemoteClient(
         private val deviceUUID: String,
         private val deviceUri: URI,

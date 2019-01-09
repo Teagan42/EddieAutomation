@@ -1,35 +1,35 @@
 package app
 
-import app.bindings.AppBinding
-import app.bindings.AppBinding.Companion.getInstance
-import app.bindings.AppBindingArguments
-import app.bindings.appModule
+import app.bindings.*
 import config.ConfigLoader
 import config.model.PlatformConfig
 import org.kodein.di.Kodein
+import org.kodein.di.direct
 import org.kodein.di.generic.factory
 import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
+import org.kodein.di.generic.on
 import platform.Platform
 import java.nio.file.Path
 
 class App {
     companion object {
-        lateinit var bindings: AppBinding
+        lateinit var bindings: Kodein
 
         @JvmStatic
         fun main(args: Array<String>) {
-            bindings = getInstance(
-                    Kodein { import(appModule(AppBindingArguments(Path.of(args.first())))) }
-            )
+            val source: Path = Path.of(args.first())
+            bindings = getAppBindings(AppBindingArguments(source))
 
-            val configLoader: ConfigLoader<*> by bindings.instance()
-            val platformFactory: (PlatformConfig) -> Platform by bindings.factory()
+            val configLoader: ConfigLoader<Any> by bindings.on(ConfigScope).instance()
+            val platformFactory by bindings.on(PlatformScope).factory<PlatformConfig, Platform>()
 
-            configLoader.load().platforms.forEach {
-                val platform = platformFactory(it)
+            configLoader.load()
+                .platforms.forEach { platformConfig ->
+                    platformFactory(platformConfig).let {
+                        println("PlatformConfig: $platformConfig")
+                        println("Platform: ${it}")
+                    }
 
-                println("Platform: ${platform.javaClass.simpleName}")
             }
         }
     }

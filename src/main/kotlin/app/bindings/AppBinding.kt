@@ -1,30 +1,26 @@
 package app.bindings
 
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import common.SingletonHolder
-import common.models.Credentials
-import config.deserializers.CredentialsDeserializer
+import app.App
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
-class AppBinding private constructor(private val args: Kodein) : Kodein by args {
-    companion object : SingletonHolder<AppBinding, Kodein>(::AppBinding)
-}
+private var appKodein: Kodein? = null
 
-fun <CONFIG_SOURCE> appModule(args: AppBindingArguments<CONFIG_SOURCE>) =
-    Kodein.Module {
-        bind<KotlinModule>() with singleton {
-            KotlinModule()
-                .addDeserializer(Credentials::class.java,
-                                 CredentialsDeserializer()
+fun getAppBindings(args: AppBindingArguments) =
+    appKodein ?: Kodein.lazy {
+        import(
+                getConfigKodein(ConfigScope,
+                                args.source
                 )
-                .let { it as KotlinModule }
-        }
-        import(configModule(args.configSource))
-        import(platformModule())
+        )
+        import(
+                getPlatformKodein(PlatformScope)
+        )
+
+        bind<Kodein>() with singleton { App.bindings }
     }
 
-data class AppBindingArguments<CONFIG_SOURCE>(
-        val configSource: CONFIG_SOURCE
+data class AppBindingArguments(
+        val source: Any
 )
