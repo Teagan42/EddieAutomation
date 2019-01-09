@@ -15,8 +15,11 @@ class ISYPlatform(
         client.connect(credentials)
 
     override suspend fun initialize() {
-        authenticate()
+        println("Authenticating")
+        println("Result ${authenticate()}")
+        println("Adding nodes")
         client.addAllNodes()
+
     }
 
     override suspend fun destroy() {

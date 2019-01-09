@@ -41,7 +41,7 @@ class ISYRemoteClient(
         Channel<DeviceStatus>()
             .let { deviceStatusChannel = it }
             .run {
-                start(deviceUUID.toString(),
+                start(deviceUUID,
                       deviceUri.toString()
                 )
             }
@@ -71,11 +71,17 @@ class ISYRemoteClient(
     }
 
     override fun addAllNodes() {
-        device.nodes.values.forEach { onNodeAdded(it) }
+        device.nodes.values.forEach {
+            onNodeAdded(it)
+            if (it.address == "3F B3 C0 1") {
+                sendCommand(ISYCommand.TURN_OFF_FAST, "0", it)
+            }
+        }
     }
 
     override fun onNodeAdded(node: UDNode) {
         launch {
+            println("Node added ${node.address}: ${node.name}")
             if (!nodeEventChannel.isClosedForSend) {
                 nodeEventChannel.send(ISYNodeEvent.Added(node))
             }
